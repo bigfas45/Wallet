@@ -19,7 +19,6 @@ exports.userById = (req, res, next, id) => {
 exports.read = (req, res) => {
   req.profile.hashed_password = undefined;
   req.profile.slat = undefined;
-
   return res.json(req.profile);
 };
 
@@ -28,7 +27,7 @@ exports.read = (req, res) => {
 
 exports.update = (req, res) => {
   console.log('UPDATE USER - req.user', req.user, 'UPDATE DATA', req.body);
-  const { firstname,lastname,email, telephone,  role, userType, password } = req.body;
+  const { firstname,lastname,email, telephone,  role, password } = req.body;
 
   User.findOne({ _id: req.profile._id }, (err, user) => {
       if (err || !user) {
@@ -77,13 +76,6 @@ if (!role) {
 
 
 
-if (!userType) {
-  return res.status(400).json({
-      error: 'userType is required'
-  });
-} else {
-  user.userType = userType;
-}
 
 
 
